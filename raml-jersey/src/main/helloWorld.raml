@@ -1,0 +1,24 @@
+#%RAML 0.8
+---
+title: simple
+baseUri: http://boottest/simple/{version}
+version: v1
+
+/hello:
+  get:
+    responses:
+      200:
+        body:
+          application/json:
+            schema: |
+              {
+                "type":"object",
+                "properties": {
+                  "stringValue":{
+                    "type":"string"
+                  },
+                  "integerValue":{
+                    "type":"integer"
+                  }
+                }
+              }
