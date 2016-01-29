@@ -1,2 +1,2 @@
 # jersey
-Testing Jersey logback ramlvalidator
+Testing Jersey logback
