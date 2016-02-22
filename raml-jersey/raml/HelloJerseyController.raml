@@ -1,0 +1,16 @@
+#%RAML 0.8
+title: Please type API title here
+baseUri: http://example.com
+protocols: [ HTTP ]
+/HelloJaxRSController: 
+  get: 
+    responses: 
+      200: 
+        body: 
+          text/html: 
+  /inside/{name}: 
+    get: 
+      responses: 
+        200: 
+          body: 
+            application/json: 

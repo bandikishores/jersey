@@ -43,7 +43,7 @@ public class HelloSpringRestController {
 		/*
 		 * URL to test
 		 * 
-		 * http://localhost:8080/raml-jersey/springBoot/1.json?text=abc
+		 * http://localhost:8080/Jersey/springBoot/1.json?text=abc
 		 * 
 		 */
 	 	@RequestMapping(value = "/springBoot/{player}.json", method = RequestMethod.GET)
@@ -78,7 +78,7 @@ public class HelloSpringRestController {
 		/*
 		 * URL to test
 		 * 
-		 * http://localhost:8080/raml-jersey/springBoot/1.xml?text=abc
+		 * http://localhost:8080/Jersey/springBoot/1.xml?text=abc
 		 * 
 		 */
 	 	@RequestMapping(value = "/springBoot/{player}.xml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML)

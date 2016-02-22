@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
@@ -15,16 +16,22 @@ import org.slf4j.LoggerFactory;
  /*
   * URL to test
   * 
-  * http://localhost:8080/raml-jersey/rest
+  * http://localhost:8080/raml-jersey/HelloJaxRSController
   * 
   */
-@Path("/")
-public class HelloController 
+@Path("/HelloJaxRSController")
+public class HelloJerseyController 
 {
-	private static Logger log = LoggerFactory.getLogger(HelloController.class);
+	private static Logger log = LoggerFactory.getLogger(HelloJerseyController.class);
 	
+	 /*
+	  * URL to test
+	  * 
+	  * http://localhost:8080/Jersey/rest/HelloJaxRSController
+	  * 
+	  */
 	@GET
-	@Produces("text/html")
+	@Produces(MediaType.TEXT_HTML)
 	public Response getStartingPage()
 	{
 		log.debug("log for hello controller using debug logging");
@@ -39,6 +46,22 @@ public class HelloController
 	{
 		String output = "<h1>Hello World!<h1>" +
 				"<p>Next Rest Content</p<br>";
+		return Response.status(200).entity(output).build();
+	}
+	
+	 /*
+	  * URL to test
+	  * 
+	  * http://localhost:8080/Jersey/rest/HelloJaxRSController/inside/kishore
+	  * 
+	  */
+	@GET
+	@Path("/inside/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getInside(@PathParam("name") String name)
+	{
+		log.debug("log for hello controller using debug logging");
+		String output = "{\"data\":\""+name+"\"}";
 		return Response.status(200).entity(output).build();
 	}
 }

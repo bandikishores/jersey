@@ -104,6 +104,13 @@
 	</logger>
 	
 	<!-- Send logs to both console and file audit -->
+	<logger name="com.bandi.rest.HelloJerseyController" level="debug"
+		additivity="false">
+		<appender-ref ref="FILE-THREAD" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+	
+	<!-- Send logs to both console and file audit -->
 	<logger name="com.bandi.rest.HelloController" level="debug"
 		additivity="false">
 		<appender-ref ref="FILE-AUDIT" />
