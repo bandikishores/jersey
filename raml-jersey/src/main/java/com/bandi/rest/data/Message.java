@@ -4,10 +4,16 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import lombok.Data;
+
+@Data
 @XmlRootElement(name = "message")
 public class Message {
 	String name;
 	String text;
+	String dontSend = "Hope not received";
+	String iAmEmpty = "";
+	String iAmNull = null;
 	
 	public Message() {}
 
@@ -25,4 +31,5 @@ public class Message {
 	public String getText() {
 		return text;
 	}
+	
 }
