@@ -14,6 +14,7 @@ public class Message {
 	String dontSend = "Hope not received";
 	String iAmEmpty = "";
 	String iAmNull = null;
+	String anotherText;
 	
 	public Message() {}
 
