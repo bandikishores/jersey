@@ -2,6 +2,7 @@ package com.bandi.rest;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +16,15 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.server.mvc.Viewable;
+//import com.sun.jersey.api.view.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bandi.rest.data.Message;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 
  /*
   * URL to test
@@ -145,10 +149,10 @@ public class HelloJerseyController
 	public String getList()
 	{
 		Gson gson = new GsonBuilder().create();
-		List list = new ArrayList();
+		List<String> list = new ArrayList<String>();
 		//list.add(1);
-		list.add(new Message("kishore", " Bandi "));
-		list.add(new Message("test", " values "));
+		list.add("Kishore");
+		list.add("Bandi");
 		//list.add(" abc 123 ");
 		// return   gson.toJson(message, Message.class);
 		return gson.toJson(list);
@@ -182,5 +186,20 @@ public class HelloJerseyController
 	{
 		System.out.println("arrays : " + arrays);
 		return arrays.toArray()[0].toString();
+	}
+	
+	 /*
+	  * URL to test
+	  * 
+	  * http://localhost:8080/Jersey/rest/HelloJaxRSController/homepage
+	  * 
+	  */
+	@Path("/homepage")
+	@GET
+	public Viewable homepage(@Context HttpServletRequest request) {
+	    System.out.println("/INDEX called");
+	  HashMap<String, String> model = new HashMap<String, String>();
+	  model.put("name","kishore-bandi");
+	  return new Viewable("/index.jsp", model);
 	}
 }

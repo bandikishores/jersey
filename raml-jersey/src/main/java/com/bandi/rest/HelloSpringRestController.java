@@ -15,6 +15,7 @@ import org.slf4j.MDC;
 import org.apache.commons.io.IOUtils;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -103,6 +104,24 @@ public class HelloSpringRestController {
 	 		 */
 	 		
 	 		
+	    }
+
+		/*
+		 * URL to test
+		 * 
+		 * http://localhost:8080/Jersey/springBoot/homepage
+		 * 
+		 */
+	 	@RequestMapping(value = "/springBoot/homepage", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML)
+	    public String homepage(ModelMap map) {
+	 		
+	 		MDC.put("logFileName", "XMLLogger");
+	 		
+	 		map.addAttribute("name", "Kishore-Bandi");
+	 		
+	 		MDC.remove("logFileName");
+	 		
+	 		return "/index.jsp";
 	    }
 
 }
