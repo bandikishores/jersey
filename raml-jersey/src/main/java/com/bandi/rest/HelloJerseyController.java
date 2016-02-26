@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -201,5 +203,19 @@ public class HelloJerseyController
 	  HashMap<String, String> model = new HashMap<String, String>();
 	  model.put("name","kishore-bandi");
 	  return new Viewable("/index.jsp", model);
+	}
+	
+	 /*
+	  * URL to test
+	  * 
+	  * http://localhost:8080/Jersey/rest/HelloJaxRSController/genericRequest?name=kishore.
+	  * 
+	  */
+	@Path("/genericRequest")
+	@GET
+	public String genericRequest(@Context ServletRequest request, @Context HttpServletResponse response) {
+	    
+		return request.getParameter("name");
+	  
 	}
 }
