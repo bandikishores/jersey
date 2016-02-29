@@ -33,7 +33,6 @@
             <param-value>ALL</param-value>
         </init-param> 
 	    
-	    
 <!-- 
 		<servlet-class>
              com.sun.jersey.spi.container.servlet.ServletContainer
@@ -59,4 +58,36 @@
 		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
+	     
+<!--
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener> 
+-->
+	 
+	
+	<!-- There are 3 ways to specify how the spring configuration needs to be loaded -->
+	<!-- 1: Using AbstractAnnotationConfigDispatcherServletInitializer defined in commented portion of SpringInitializer.java -->
+	<!-- 2: Using contextConfigLocation commented below -->
+	<!-- 3: Defining locatorFactorySelector where locations property will be defined. -->
+<!-- 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+ -->	
+	<context-param>
+		<param-name>locatorFactorySelector</param-name>
+		<param-value>
+			classpath:factories.xml
+		</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>parentContextKey</param-name>
+		<param-value>myShareSpringContext</param-value>
+	</context-param>
+	
 </web-app>

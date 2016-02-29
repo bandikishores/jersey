@@ -21,4 +21,17 @@ org.apache.catalina.core.ContainerBase.[Catalina].handlers = java.util.logging.C
 
 
 
-4) 
+4) When using Spring-Jersey jar for loading spring dependency, then Don't include 
+	org.springframework.web.context.ContextLoaderListener 
+  as a listener in your web.xml
+
+  Because apparently Spring-Jersey jar has a ContextLoader which causes issue of double initializer's of Context Servlet during server start up.
+Resulting in Exception
+
+SEVERE: Exception sending context initialized event to listener instance of class org.springframework.web.context.ContextLoaderListener
+java.lang.IllegalStateException: Cannot initialize context because there is already a root application context present - check whether you have multiple ContextLoader* definitions in your web.xml!
+        at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:277)
+        at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106)
+
+
+5) 

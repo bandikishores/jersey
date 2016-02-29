@@ -3,7 +3,7 @@ package com.bandi.rest.configuration;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 
-public class SpringInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+/*public class SpringInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
  
 	@Override
     protected Class<?>[] getRootConfigClasses() {
@@ -20,4 +20,4 @@ public class SpringInitializer extends AbstractAnnotationConfigDispatcherServlet
         return new String[] { "/" };
     }
  
-}
+}*/

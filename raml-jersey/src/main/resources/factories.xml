@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-init-method="init">
+
+	<!-- property configuration -->
+	<!--  
+	<bean id="propertyConfigurer"
+		class="com.inmobi.ui.advertiser.web.servlet.spring.ConfigSpringPostProcessor" />
+	-->
+	<!-- <bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/advertiser-ui-env.properties</value>
+			</list>
+		</property>
+	</bean>
+	 -->
+
+	<!-- alias for factory to use in webapp -->
+	<bean id="myShareSpringContext"
+		class="org.springframework.context.support.ClassPathXmlApplicationContext">
+		<!-- <property name="name" value="app.root" /> -->
+		<constructor-arg>
+			<list merge="true">
+				<value>classpath:applicationContext.xml
+				</value>
+				<!-- <value>classpath*:/META-INF/spring/applicationContext-clients.xml
+				</value> -->
+			</list>
+		</constructor-arg>
+	</bean>
+
+
+	<!-- abstract base for all factories -->
+<!-- 	<bean id="base" lazy-init="true" abstract="true"
+		class="com.inmobi.ui.advertiser.web.servlet.spring.ApplicationContextFactory">
+		<property name="propertyConfigurer" ref="propertyConfigurer" />
+	</bean>
+ -->
+ 
+
+
+</beans>
+    

@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bandi.rest.data.Message;
+import com.bandi.rest.transaction.Transaction;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -37,6 +39,10 @@ import com.google.gson.GsonBuilder;
 @Path("/HelloJaxRSController")
 public class HelloJerseyController 
 {
+	@Inject
+	Transaction transaction;
+	
+	
 	private static Logger log = LoggerFactory.getLogger(HelloJerseyController.class);
 	
 	 /*
@@ -217,5 +223,17 @@ public class HelloJerseyController
 	    
 		return request.getParameter("name");
 	  
+	}
+	
+	 /*
+	  * URL to test
+	  * 
+	  * http://localhost:8080/Jersey/rest/HelloJaxRSController/springLoad
+	  * 
+	  */
+	@Path("/springLoad")
+	@GET
+	public String springLoad(@Context HttpServletRequest request) {
+	  return transaction.returnSuccess();
 	}
 }
