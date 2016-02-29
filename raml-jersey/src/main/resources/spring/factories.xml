@@ -25,7 +25,7 @@
 		<!-- <property name="name" value="app.root" /> -->
 		<constructor-arg>
 			<list merge="true">
-				<value>classpath:applicationContext.xml
+				<value>classpath*:/spring/applicationContext.xml
 				</value>
 				<!-- <value>classpath*:/META-INF/spring/applicationContext-clients.xml
 				</value> -->

@@ -34,4 +34,25 @@ java.lang.IllegalStateException: Cannot initialize context because there is alre
         at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:106)
 
 
-5) 
+5)  If you want to use ContextLoaderListener and jersey-spring, then define contextConfigLocation with a dummy context present in WEB-INF.
+
+
+		        <context-param>
+                <param-name>contextConfigLocation</param-name>
+                <param-value>
+                        /WEB-INF/applicationContext.xml
+                </param-value>
+        </context-param>
+
+
+6) 
+
+
+
+
+
+
+
+
+
+

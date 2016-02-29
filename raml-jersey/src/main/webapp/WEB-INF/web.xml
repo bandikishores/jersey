@@ -59,13 +59,11 @@
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 	     
-<!--
 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener> 
--->
 	 
 	
 	<!-- There are 3 ways to specify how the spring configuration needs to be loaded -->
@@ -81,13 +79,20 @@
 	<context-param>
 		<param-name>locatorFactorySelector</param-name>
 		<param-value>
-			classpath:factories.xml
+			classpath*:/spring/factories.xml
 		</param-value>
 	</context-param>
 
 	<context-param>
 		<param-name>parentContextKey</param-name>
 		<param-value>myShareSpringContext</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			/WEB-INF/applicationContext.xml
+		</param-value>
 	</context-param>
 	
 </web-app>
