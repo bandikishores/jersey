@@ -21,7 +21,12 @@
 		<init-param>
 		  <param-name>jersey.config.server.provider.classnames</param-name>
 		  <param-value>
+		  		com.bandi.jacksonconfig.JacksonFeature;org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;org.glassfish.jersey.filter.LoggingFilter
+		  		<!-- For Viewable to work, you need to use 
+		  		
 		  		org.glassfish.jersey.jackson.JacksonFeature;org.glassfish.jersey.server.mvc.jsp.JspMvcFeature
+		  		
+		  		 -->
 		  </param-value>
 		</init-param>
 	    <init-param>
@@ -32,7 +37,10 @@
             <param-name>jersey.config.server.tracing</param-name>
             <param-value>ALL</param-value>
         </init-param> 
-	    
+	    <init-param>
+		    <param-name>javax.ws.rs.Application</param-name>
+		    <param-value>com.bandi.rest.configuration.JerseyResourceConfig</param-value>
+		</init-param>
 <!-- 
 		<servlet-class>
              com.sun.jersey.spi.container.servlet.ServletContainer
@@ -57,6 +65,11 @@
 	<servlet-mapping>
 		<servlet-name>jersey-servlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>jersey-servlet</servlet-name>
+		<url-pattern>*.json</url-pattern>
 	</servlet-mapping>
 	     
 	<listener>

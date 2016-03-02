@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bandi.rest.data.Message;
+import com.bandi.rest.transaction.GuiceTransaction;
 import com.bandi.rest.transaction.Transaction;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,6 +42,9 @@ public class HelloJerseyController
 {
 	@Inject
 	Transaction transaction;
+	
+	@Inject
+	GuiceTransaction guiceTransaction;
 	
 	
 	private static Logger log = LoggerFactory.getLogger(HelloJerseyController.class);
@@ -235,5 +239,29 @@ public class HelloJerseyController
 	@GET
 	public String springLoad(@Context HttpServletRequest request) {
 	  return transaction.returnSuccess();
+	}
+	
+	 /*
+	  * URL to test
+	  * 
+	  * http://localhost:8080/Jersey/rest/HelloJaxRSController/springLoad.json
+	  * 
+	  */
+	@Path("/springLoad.json")
+	@GET
+	public String springLoad_json(@Context HttpServletRequest request) {
+	  return transaction.returnSuccess();
+	}
+	
+	 /*
+	  * URL to test
+	  * 
+	  * http://localhost:8080/Jersey/rest/HelloJaxRSController/guiceLoad
+	  * 
+	  */
+	@Path("/guiceLoad")
+	@GET
+	public String guiceLoad(@Context HttpServletRequest request) {
+	  return guiceTransaction.returnSuccess();
 	}
 }

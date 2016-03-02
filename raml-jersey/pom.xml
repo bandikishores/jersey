@@ -8,7 +8,7 @@
   <name>raml-jersey Maven Webapp</name>
   <url>http://maven.apache.org</url>
   
-  <properties>
+  <properties> 
 		<jdk.version>1.8</jdk.version>
 		<spring.version>4.1.1.RELEASE</spring.version>
 		<jersey.version>2.17</jersey.version>
@@ -18,6 +18,7 @@
 		<junit.version>4.11</junit.version>
 		<logback.version>1.1.3</logback.version>
 		<jcl.slf4j.version>1.7.12</jcl.slf4j.version>
+		<jackson.version>2.7.2</jackson.version>
 	</properties>
   
   <dependencies>
@@ -116,13 +117,13 @@
 			<artifactId>jersey-mvc-jsp</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-		
+<!-- 		
 		 <dependency>
 		    <groupId>org.glassfish.jersey.media</groupId>
 		    <artifactId>jersey-media-json-jackson</artifactId>
 		    <version>${jersey.version}</version>
 		</dependency> 
-		
+		 -->
 		<dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
             <artifactId>jersey-spring3</artifactId>
@@ -143,6 +144,37 @@
 			</exclusions>			
         </dependency>
 		
+		 <dependency>
+              <groupId>com.fasterxml.jackson.jaxrs</groupId>
+              <artifactId>jackson-jaxrs-json-provider</artifactId>
+              <version>${jackson.version}</version>
+          </dependency> 
+
+          <dependency>
+                  <groupId>com.fasterxml.jackson.core</groupId>
+                  <artifactId>jackson-annotations</artifactId>
+                  <version>${jackson.version}</version>
+          </dependency>
+
+          <dependency>
+                  <groupId>com.fasterxml.jackson.core</groupId>
+                  <artifactId>jackson-databind</artifactId>
+                  <version>${jackson.version}</version>
+          </dependency>
+
+<!-- Guice Dependencies -->
+		<dependency>
+			<groupId>org.glassfish.hk2</groupId>
+			<artifactId>guice-bridge</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>3.0</version>
+		</dependency>
+				
 		 
 		 
 		<!-- 
