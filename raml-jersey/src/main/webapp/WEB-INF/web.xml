@@ -39,7 +39,7 @@
         </init-param> 
 	    <init-param>
 		    <param-name>javax.ws.rs.Application</param-name>
-		    <param-value>com.bandi.rest.configuration.JerseyResourceConfig</param-value>
+		    <param-value>com.bandi.rest.configuration.JerseyApplicationConfig</param-value>
 		</init-param>
 <!-- 
 		<servlet-class>
