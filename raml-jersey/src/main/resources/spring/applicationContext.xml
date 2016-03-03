@@ -8,6 +8,8 @@
  
 	<context:component-scan base-package="com.bandi.rest" />
 	
-	<bean id="transaction" class="com.bandi.rest.transaction.impl.TransactionImpl" />
+	<bean id="transaction" class="com.bandi.rest.transaction.impl.TransactionImpl" >
+		<property name="myString" value="Spring DI Loaded" /> 
+	</bean>
  
 </beans>
