@@ -21,7 +21,7 @@
 		<init-param>
 		  <param-name>jersey.config.server.provider.classnames</param-name>
 		  <param-value>
-		  		com.bandi.jacksonconfig.JacksonFeature;org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;org.glassfish.jersey.filter.LoggingFilter
+		  		org.glassfish.jersey.media.multipart.MultiPartFeature;com.bandi.jacksonconfig.JacksonFeature;org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;org.glassfish.jersey.filter.LoggingFilter
 		  		<!-- For Viewable to work, you need to use 
 		  		
 		  		org.glassfish.jersey.jackson.JacksonFeature;org.glassfish.jersey.server.mvc.jsp.JspMvcFeature

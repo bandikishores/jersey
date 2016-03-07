@@ -2,6 +2,7 @@
 Testing Jersey & springmvc web service in one server with logback.<br/>
 making use of JAXB for automatic XML conversion and Jersey support for Jackson to perform automatic JSON conversion.<br/>
 Supports Guice Dependency in Jersey using HK2.
+Supports Single/Multi File Upload.
 
 Problems:
 1) If one of the class level Path is defined and the other class just method level is defined then jersey will not search inside the class which doesn't have Path defined.
