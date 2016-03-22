@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bandi.rest.data.Message;
+import com.bandi.rest.data.SimpleData;
 import com.bandi.rest.transaction.GuiceTransaction;
 import com.bandi.rest.transaction.Transaction;
 import com.google.gson.Gson;
@@ -106,7 +107,7 @@ public class HelloJerseyController {
 	 */
 	@GET
 	@Path("/inside/{name}")
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.APPLICATION_JSON})
 	public Response getInside(@PathParam("name") String name) {
 		log.debug("log for hello controller using debug logging");
 		String output = "{\"data\":\"" + name + "\"}";
@@ -321,5 +322,76 @@ public class HelloJerseyController {
 			}
 		}
 		return null;
+	}
+	
+
+
+	/*
+	 * URL to test
+	 * 
+	 * http://localhost:8080/Jersey/rest/HelloJaxRSController/uploadPOST
+	 * 
+	 */
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/uploadPOST")
+	public String uploadJSON(Integer i) throws Exception {
+
+		return "{\"abc\":\"JSON\"}";
+	}
+
+	/*
+	 * URL to test
+	 * 
+	 * http://localhost:8080/Jersey/rest/HelloJaxRSController/uploadPOST
+	 * 
+	 */
+	@POST
+	@Produces(MediaType.TEXT_HTML)
+	@Path("/uploadPOST")
+	public String uploadHTML(String abc) throws Exception {
+
+		return "<html><body>HTML Text</body></html>";
+
+	}
+
+	/*
+	 * URL to test
+	 * 
+	 * http://localhost:8080/Jersey/rest/HelloJaxRSController/addadvertiser
+	 * 
+	 * { "advertiserEmailId" : "testEmail"}
+	 * 
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	@Path("/addadvertiser")
+	public String addadvertiser(final String advertiserEmailId) throws Exception {
+
+		return "responseText " + advertiserEmailId;
+
+	}
+
+	/*
+	 * URL to test
+	 * 
+	 * http://localhost:8080/Jersey/rest/HelloJaxRSController/postJson
+	 * 
+	 * {"result" : "firstSend", "adId":"abcAd" }
+	 * 
+	 * or
+	 * 
+	 * { "SimpleData":{"result" : "firstSend", "adId":"abcAd" } }
+	 * 
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/postJson")
+	public SimpleData uploadHTML(SimpleData simple) throws Exception {
+		simple.setResult("Received sending response");
+		return simple;
+
 	}
 }
