@@ -36,6 +36,7 @@ import org.json.simple.JSONObject;
 //import com.sun.jersey.api.view.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bandi.rest.data.Message;
@@ -261,7 +262,7 @@ public class HelloJerseyController {
 	 */
 	@Path("/springLoad.json")
 	@GET
-	@Transactional
+	// @Transactional(propagation = Propagation.REQUIRES_NEW)
 	public String springLoad_json(@Context HttpServletRequest request) {
 		return testService.returnString();
 	}
