@@ -4,7 +4,6 @@ import com.bandi.rest.transaction.GuiceTransaction;
 import com.bandi.rest.transaction.impl.GuiceTransactionImpl;
 import com.google.inject.AbstractModule;
 import com.google.inject.Key;
-import com.google.inject.Provider;
 import com.google.inject.name.Names;
 
 public class GuiceModule extends AbstractModule {

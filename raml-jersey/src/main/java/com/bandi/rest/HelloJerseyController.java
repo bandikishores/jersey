@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,12 +32,15 @@ import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.glassfish.jersey.server.mvc.Viewable;
+import org.json.simple.JSONObject;
 //import com.sun.jersey.api.view.Viewable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.bandi.rest.data.Message;
 import com.bandi.rest.data.SimpleData;
+import com.bandi.rest.service.TestService;
 import com.bandi.rest.transaction.GuiceTransaction;
 import com.bandi.rest.transaction.Transaction;
 import com.google.gson.Gson;
@@ -50,6 +54,9 @@ import com.google.gson.GsonBuilder;
  */
 @Path("/HelloJaxRSController")
 public class HelloJerseyController {
+	@Inject
+	TestService testService;
+	
 	@Inject
 	Transaction transaction;
 
@@ -254,8 +261,9 @@ public class HelloJerseyController {
 	 */
 	@Path("/springLoad.json")
 	@GET
+	@Transactional
 	public String springLoad_json(@Context HttpServletRequest request) {
-		return transaction.returnSuccess();
+		return testService.returnString();
 	}
 
 	/*
@@ -393,5 +401,32 @@ public class HelloJerseyController {
 		simple.setResult("Received sending response");
 		return simple;
 
+	}
+
+	/*
+	 * URL to test
+	 * 
+	 * http://localhost:8080/Jersey/rest/HelloJaxRSController/postJson
+	 * 
+	 * {"result" : "firstSend", "adId":"abcAd" }
+	 * 
+	 * or
+	 * 
+	 * { "SimpleData":{"result" : "firstSend", "adId":"abcAd" } }
+	 * 
+	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces({MediaType.TEXT_PLAIN})
+	@Path("/postNestedJson")
+	public String postNestedJson(JSONObject obj) throws Exception {
+		 String result = "failure";
+		    if(obj != null) {
+		        String userId = (String) obj.get("UserId");
+		        String courseId = (String) obj.get("CourseId");         
+		        result = ((LinkedHashMap) obj.get("CourseDetails")).toString();
+		        // Problem in fetching course Details 
+		    }
+		return result;
 	}
 }
