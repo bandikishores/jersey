@@ -1,5 +1,5 @@
 # jersey-springmvc-web-service
-Testing Jersey & springmvc web service in one server with logback.<br/>
+Testing Jersey & springmvc web service in one server with H2 InMemory DB and Hibernate support.<br/>
 making use of JAXB for automatic XML conversion and Jersey support for Jackson to perform automatic JSON conversion.<br/>
 Supports Guice Dependency in Jersey using HK2.
 Supports Single/Multi File Upload.
