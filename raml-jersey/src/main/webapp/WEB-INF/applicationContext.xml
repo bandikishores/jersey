@@ -1,11 +1,90 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
-	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd 
 	http://www.springframework.org/schema/context
-	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
- 
- <!--  NOT USED, Use the one Present in resources -> Spring  -->
- 
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<context:component-scan base-package="com.bandi.rest" />
+	
+	<mvc:annotation-driven />
+	<context:annotation-config />
+	
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="transaction" class="com.bandi.rest.transaction.impl.TransactionImpl">
+		<property name="myString" value="Spring DI Loaded" />
+	</bean>
+
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<constructor-arg index="0">
+			<props>
+				<prop key="poolName">connection_pool</prop>
+				<prop key="driverClassName">org.h2.Driver</prop>
+				<prop key="jdbcUrl">jdbc:h2:mem:mockservice;DB_CLOSE_DELAY=-1;
+				<!-- jdbc:h2:mem:mockservice;DB_CLOSE_DELAY=-1;RUNSCRIPT FROM 'classpath:scripts/create.sql'\\;RUNSCRIPT FROM 'classpath:scripts/init.sql' -->
+				</prop>
+				<!-- 
+				    <prop key="username">${jdbc.username}</prop>
+				    <prop key="password">${jdbc.password}</prop> 
+				 -->
+				<prop key="maximumPoolSize">10</prop>
+				<prop key="minimumIdle">5</prop>
+				<prop key="connectionTimeout">5000</prop>
+				<prop key="idleTimeout">30000</prop>
+				<prop key="autoCommit">false</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg index="0" ref="hikariConfig" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties" ref="dialectProperties" />
+<!-- 		<property name="entityInterceptor">
+			<bean class="com.bandi.rest.HibernateLogInterceptor" />
+		</property> -->
+		<property name="packagesToScan">
+			<list>
+				<!-- 
+				<value>com.bandi.rest.dao.entity</value>
+				<value>com.bandi.rest.dao.domain</value> 
+				-->
+			</list>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<util:properties id="dialectProperties">
+		<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+		<prop key="hibernate.hbm2ddl.auto">update</prop>
+		<prop key="hibernate.show_sql">true</prop>
+		<prop key="hibernate.format_sql">true</prop>
+		<prop key="hibernate.use_sql_comments">true</prop>
+		<prop key="hibernate.generate_statistics">false</prop>
+		<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
+		<prop key="hibernate.transaction.factory_class">org.hibernate.engine.transaction.internal.jdbc.JdbcTransactionFactory
+		</prop>
+		<!-- org.hibernate.transaction.JDBCTransactionFactory</prop> -->
+	</util:properties>
+
 </beans>

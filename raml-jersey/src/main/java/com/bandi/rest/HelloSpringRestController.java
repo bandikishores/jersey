@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.bandi.rest.data.DistributionOrderActionParametersList;
 import com.bandi.rest.data.Message;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,11 +28,11 @@ import com.google.gson.GsonBuilder;
 /*
  * URL to test
  * 
- * http://localhost:8080/raml-jersey/springBoot/1
+ * 
  * 
  */
 
-@Controller("adControllerNew")
+@RestController("springController")
 public class HelloSpringRestController {
 	
 	private static Logger log = LoggerFactory.getLogger(HelloSpringRestController.class);
@@ -38,7 +40,7 @@ public class HelloSpringRestController {
 		/*
 		 * URL to test
 		 * 
-		 * http://localhost:8080/Jersey/springBoot/1.json?text=abc
+		 * http://localhost:8080/Jersey/dispatcherPath/springBoot/1.json?text=abc
 		 * 
 		 */
 	 	@RequestMapping(value = "/springBoot/{player}.json", method = RequestMethod.GET)
@@ -73,7 +75,7 @@ public class HelloSpringRestController {
 		/*
 		 * URL to test
 		 * 
-		 * http://localhost:8080/Jersey/springBoot/1.xml?text=abc
+		 * http://localhost:8080/Jersey/dispatcherPath/springBoot/1.xml?text=abc
 		 * 
 		 */
 	 	@RequestMapping(value = "/springBoot/{player}.xml", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML)
@@ -103,7 +105,7 @@ public class HelloSpringRestController {
 		/*
 		 * URL to test
 		 * 
-		 * http://localhost:8080/Jersey/springBoot/homepage
+		 * http://localhost:8080/Jersey/dispatcherPath/springBoot/homepage
 		 * 
 		 */
 	 	@RequestMapping(value = "/springBoot/homepage", method = RequestMethod.GET, produces = MediaType.APPLICATION_XML)
@@ -116,6 +118,20 @@ public class HelloSpringRestController {
 	 		MDC.remove("logFileName");
 	 		
 	 		return "/index.jsp";
+	    }
+
+		/*
+		 * URL to test
+		 * 
+		 * http://localhost:8080/Jersey/dispatcherPath/sampleTest
+		 * 
+		 */
+	 	@RequestMapping(value = "/sampleTest", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	    public DistributionOrderActionParametersList sampleTest(DistributionOrderActionParametersList DistributionOrderActionParametersList) {
+	 		
+	 		log.info("Value of Object {}", DistributionOrderActionParametersList);
+	 		
+	 		return DistributionOrderActionParametersList;
 	    }
 
 	

@@ -4,14 +4,16 @@
 	<property name="DEV_HOME" value="/home/kishore/jersey/logs/" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<param name="Target" value="System.out" />
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<Pattern>
-				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n
+				%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} -
+				%msg%n
 			</Pattern>
 		</layout>
 	</appender>
-	
-	
+
+
 	<appender name="FILE-THREAD" class="ch.qos.logback.classic.sift.SiftingAppender">
 
 		<!-- This is MDC value -->
@@ -23,49 +25,51 @@
 
 		<sift>
 
-		  <!-- A standard RollingFileAppender, the log file is based on 'logFileName' at runtime  -->
-		  <appender name="FILE-${logFileName}"
-			class="ch.qos.logback.core.rolling.RollingFileAppender">
-			<file>${DEV_HOME}/${logFileName}.log</file>
+			<!-- A standard RollingFileAppender, the log file is based on 'logFileName' 
+				at runtime -->
+			<appender name="FILE-${logFileName}"
+				class="ch.qos.logback.core.rolling.RollingFileAppender">
+				<file>${DEV_HOME}/${logFileName}.log</file>
 
-			<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-				<Pattern>
-					%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} - %msg%n
-				</Pattern>
-			</encoder>
+				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+					<Pattern>
+						%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} - %msg%n
+					</Pattern>
+				</encoder>
 
-			<rollingPolicy
-				class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-				<FileNamePattern>${DEV_HOME}/${logFileName}.%i.log.zip
-				</FileNamePattern>
-				<MinIndex>1</MinIndex>
-				<MaxIndex>10</MaxIndex>
-			</rollingPolicy>
+				<rollingPolicy
+					class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+					<FileNamePattern>${DEV_HOME}/${logFileName}.%i.log.zip
+					</FileNamePattern>
+					<MinIndex>1</MinIndex>
+					<MaxIndex>10</MaxIndex>
+				</rollingPolicy>
 
-			<triggeringPolicy
-				class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-				<MaxFileSize>10MB</MaxFileSize>
-			</triggeringPolicy>
+				<triggeringPolicy
+					class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+					<MaxFileSize>10MB</MaxFileSize>
+				</triggeringPolicy>
 
-		  </appender>
+			</appender>
 
 		</sift>
 	</appender>
-	
+
 
 	<appender name="FILE-AUDIT"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${DEV_HOME}/debug.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
-				%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} - %msg%n
+				%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} -
+				%msg%n
 			</Pattern>
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			rollover daily
 			<fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log
-                        </fileNamePattern>
+			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>10MB</maxFileSize>
@@ -74,20 +78,21 @@
 
 	</appender>
 
- 	
+
 	<appender name="FILE-ERROR"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${DEV_HOME}/error.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
-				%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} - %msg%n
+				%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} -
+				%msg%n
 			</Pattern>
 		</encoder>
 
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			rollover daily
 			<fileNamePattern>${DEV_HOME}/archived/error.%d{yyyy-MM-dd}.%i.log
-                        </fileNamePattern>
+			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
 				<maxFileSize>10MB</maxFileSize>
@@ -95,21 +100,21 @@
 		</rollingPolicy>
 
 	</appender>
-	
+
 	<!-- Send logs to both console and file audit -->
 	<logger name="com.bandi.rest.HelloSpringRestController" level="debug"
 		additivity="false">
 		<appender-ref ref="FILE-THREAD" />
 		<appender-ref ref="STDOUT" />
 	</logger>
-	
+
 	<!-- Send logs to both console and file audit -->
 	<logger name="com.bandi.rest.HelloJerseyController" level="debug"
 		additivity="false">
 		<appender-ref ref="FILE-THREAD" />
 		<appender-ref ref="STDOUT" />
 	</logger>
-	
+
 	<!-- Send logs to both console and file audit -->
 	<logger name="com.bandi.rest.HelloController" level="debug"
 		additivity="false">
@@ -120,5 +125,27 @@
 	<root level="error">
 		<appender-ref ref="FILE-ERROR" />
 	</root>
+
+
+	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.core">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.beans">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.context">
+		<level value="info" />
+	</logger>
+
+	<logger name="org.springframework.http">
+		<level value="debug" />
+	</logger>
+	<!-- below alternate between debug and info -->
+	<logger name="org.springframework.web">
+		<level value="debug" />
+	</logger>
 
 </configuration>

@@ -1,6 +1,7 @@
-package com.bandi.rest.configuration;
+/*package com.bandi.rest.configuration;
 
-/*
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
 public class SpringInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
  
 	@Override

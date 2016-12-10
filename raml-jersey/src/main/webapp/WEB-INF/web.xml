@@ -72,12 +72,12 @@
 		<url-pattern>*.json</url-pattern>
 	</servlet-mapping>
 
-	<listener>
+	 <listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener> 
-	  
+	
 	
 	<!-- There are 3 ways to specify how the spring configuration needs to be loaded -->
 	<!-- 1: Using AbstractAnnotationConfigDispatcherServletInitializer defined in commented portion of SpringInitializer.java -->
@@ -90,28 +90,32 @@
 	</context-param>
 	 -->
  
- <!-- <servlet>
+	 <servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+	        <param-name>contextClass</param-name>
+	        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+	    </init-param>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
-		<url-pattern>/springBoot/*</url-pattern>
+		<url-pattern>/dispatcherPath/*</url-pattern>
 	</servlet-mapping>
-  -->
-	<context-param>
+  
+<!-- 	<context-param>
 		<param-name>locatorFactorySelector</param-name>
 		<param-value>
 			classpath*:/spring/factories.xml
 		</param-value>
 	</context-param>
-
-	<context-param>
+ -->
+	<!-- <context-param>
 		<param-name>parentContextKey</param-name>
 		<param-value>myShareSpringContext</param-value>
-	</context-param>
+	</context-param> -->
 	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -119,5 +123,5 @@
 			/WEB-INF/applicationContext.xml
 		</param-value>
 	</context-param>
-	 
+	  
 </web-app>

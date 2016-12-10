@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.test.bandi</groupId>
-	<artifactId>raml-jersey</artifactId>
+	<artifactId>jersey</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>raml-jersey Maven Webapp</name>
+	<name>jersey Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -320,7 +320,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>raml-jersey</finalName>
+		<finalName>jersey</finalName>
 
 		<plugins>
 
@@ -350,7 +350,7 @@
 				<configuration>
 					<!-- Always download and attach dependencies source code -->
 					<downloadSources>true</downloadSources>
-					<downloadJavadocs>false</downloadJavadocs>
+					<downloadJavadocs>true</downloadJavadocs>
 					<!-- Avoid type mvn eclipse:eclipse -Dwtpversion=2.0 -->
 					<wtpversion>2.0</wtpversion>
 				</configuration>
@@ -372,7 +372,7 @@
 				<version>2.4</version>
 				<configuration>
 					<warSourceDirectory>src/main/webapp</warSourceDirectory>
-					<warName>SpringRestControllerDemo</warName>
+					<warName>Jersey</warName>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
