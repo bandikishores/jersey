@@ -14,6 +14,7 @@ import org.slf4j.MDC;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -123,11 +124,25 @@ public class HelloSpringRestController {
 		/*
 		 * URL to test
 		 * 
+		 * http://localhost:8080/Jersey/dispatcherPath/samplePostTest
+		 * 
+		 */
+	 	@RequestMapping(value = "/samplePostTest", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	    public Message samplePostTest(Message message) {
+	 		
+	 		log.info("Value of message {}", message);
+	 		
+	 		return message;
+	    }
+
+		/*
+		 * URL to test
+		 * 
 		 * http://localhost:8080/Jersey/dispatcherPath/sampleTest
 		 * 
 		 */
 	 	@RequestMapping(value = "/sampleTest", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-	    public DistributionOrderActionParametersList sampleTest(DistributionOrderActionParametersList DistributionOrderActionParametersList) {
+	    public DistributionOrderActionParametersList sampleTest(@RequestBody DistributionOrderActionParametersList DistributionOrderActionParametersList) {
 	 		
 	 		log.info("Value of Object {}", DistributionOrderActionParametersList);
 	 		
