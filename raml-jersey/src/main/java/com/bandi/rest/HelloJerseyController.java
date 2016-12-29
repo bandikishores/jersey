@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.bandi.rest.data.Message;
 import com.bandi.rest.data.SimpleData;
@@ -264,7 +265,10 @@ public class HelloJerseyController {
 	@GET
 	// @Transactional(propagation = Propagation.REQUIRES_NEW)
 	public String springLoad_json(@Context HttpServletRequest request) {
-		return testService.returnString();
+		boolean actualTransactionActive = TransactionSynchronizationManager.isActualTransactionActive();
+		
+		String str = testService.returnString();
+		return str + "Controller level Transaction State : " + actualTransactionActive + "<br/>";
 	}
 
 	/*

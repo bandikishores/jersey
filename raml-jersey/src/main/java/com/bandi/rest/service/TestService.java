@@ -18,7 +18,7 @@ public class TestService {
 	@Inject
 	Transaction transaction;
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional
 	public String returnString() {
 
 		return transaction.returnSuccess();

@@ -138,7 +138,29 @@ public class HelloSpringRestController {
 		/*
 		 * URL to test
 		 * 
+		 * http://localhost:8080/Jersey/dispatcherPath/samplePostMessageText
+		 * 
+				JSONRequestBody:
+				{
+				   "name":"kishore",
+				   "text":"blablabla"
+				}
+
+
+		 */
+	 	@RequestMapping(value = "/samplePostMessageText", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
+	    public Message samplePostMessageText(Message message) {
+	 		
+	 		log.info("Value of message {}", message);
+	 		
+	 		return message;
+	    }
+
+		/*
+		 * URL to test
+		 * 
 		 * http://localhost:8080/Jersey/dispatcherPath/sampleTest
+		 
 		 * 
 		 */
 	 	@RequestMapping(value = "/sampleTest", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)

@@ -30,8 +30,9 @@
 			<props>
 				<prop key="poolName">connection_pool</prop>
 				<prop key="driverClassName">org.h2.Driver</prop>
-				<prop key="jdbcUrl">jdbc:h2:mem:mockservice;DB_CLOSE_DELAY=-1;
-				<!-- jdbc:h2:mem:mockservice;DB_CLOSE_DELAY=-1;RUNSCRIPT FROM 'classpath:scripts/create.sql'\\;RUNSCRIPT FROM 'classpath:scripts/init.sql' -->
+				<prop key="jdbcUrl">
+				<!-- jdbc:h2:mem:dbservice;DB_CLOSE_DELAY=-1; -->
+				 jdbc:h2:mem:dbservice;DB_CLOSE_DELAY=-1;INIT=RUNSCRIPT FROM 'classpath:scripts/create.sql'\;RUNSCRIPT FROM 'classpath:scripts/init.sql';
 				</prop>
 				<!-- 
 				    <prop key="username">${jdbc.username}</prop>

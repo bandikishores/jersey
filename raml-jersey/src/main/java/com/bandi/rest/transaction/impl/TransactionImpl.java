@@ -1,5 +1,6 @@
 package com.bandi.rest.transaction.impl;
 
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -20,6 +21,9 @@ public class TransactionImpl implements Transaction {
 	@Setter
 	private String myString;
 
+	@Inject
+	private AnnotatedDAOImpl annotatedDAO;
+
 	@Override
 	public String returnSuccess() {
 
@@ -30,15 +34,15 @@ public class TransactionImpl implements Transaction {
 
 		str.append("Current Transaction State : " + actualTransactionActive + "\n<br/>");
 
-		// Stream.of(1).forEach(value -> str.append(transaction.returnSuccess()));
+		// Stream.of(1).forEach(value ->
+		// str.append(transaction.returnSuccess()));
 
 		Stream.of(1).map(value -> {
-			str.append("Inside Transaction State : " + TransactionSynchronizationManager.isActualTransactionActive()
-					+ "\n<br/>");
-			str.append(myString);
+			str.append(annotatedDAO.checkDBAndReturnValue());
+			str.append(myString).append("<br/>");
 			return 0;
 		}).collect(Collectors.toList());
-		
+
 		return str.toString();
 	}
 
