@@ -42,6 +42,10 @@ public class TransactionImpl implements Transaction {
 			str.append(myString).append("<br/>");
 			return 0;
 		}).collect(Collectors.toList());
+		
+		annotatedDAO.bulkInsertData();
+		
+		str.append("Total Number of Records : ").append(annotatedDAO.getTotalDataCount()).append("<br/>");
 
 		return str.toString();
 	}

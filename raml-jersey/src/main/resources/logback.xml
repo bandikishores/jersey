@@ -2,6 +2,8 @@
 <configuration>
 
 	<property name="DEV_HOME" value="/home/kishore/jersey/logs/" />
+	
+	<property name="MAX_HISTORY" value="15" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<param name="Target" value="System.out" />
@@ -33,7 +35,7 @@
 
 				<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 					<Pattern>
-						%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} - %msg%n
+						%d{yyyy-MM-dd HH:mm:ss.SSS} %mdc [%thread] %level %logger{35} - %msg%n
 					</Pattern>
 				</encoder>
 
@@ -61,7 +63,7 @@
 		<file>${DEV_HOME}/debug.log</file>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>
-				%d{yyyy-MM-dd HH:mm:ss} %mdc [%thread] %level %logger{35} -
+				%d{yyyy-MM-dd HH:mm:ss.SSS} %mdc [%thread] %level %logger{35} -
 				%msg%n
 			</Pattern>
 		</encoder>
@@ -70,9 +72,35 @@
 			rollover daily
 			<fileNamePattern>${DEV_HOME}/archived/debug.%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
+			<totalSizeCap>500MB</totalSizeCap>
+			<maxHistory>${MAX_HISTORY}</maxHistory>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-				<maxFileSize>10MB</maxFileSize>
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+
+	</appender>
+	
+	<appender name="HIBERNATE-LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${DEV_HOME}/hibernate.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss.SSS} %mdc [%thread] %level %logger{35} -
+				%msg%n
+			</Pattern>
+		</encoder>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			rollover daily
+			<fileNamePattern>${DEV_HOME}/archived/hibernate.%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<totalSizeCap>500MB</totalSizeCap>
+			<maxHistory>${MAX_HISTORY}</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
 			</timeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 
@@ -122,6 +150,13 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 
+	<!-- Send logs to both console and file audit -->
+	<logger name="com.bandi" level="debug"
+		additivity="false">
+		<appender-ref ref="FILE-AUDIT" />
+		<appender-ref ref="STDOUT" />
+	</logger>
+
 	<root level="error">
 		<appender-ref ref="FILE-ERROR" />
 	</root>
@@ -147,5 +182,27 @@
 	<logger name="org.springframework.web">
 		<level value="debug" />
 	</logger>
+	
+	<!-- Log all SQL DML statements as they are executed -->
+	<logger name="org.hibernate.SQL">
+		<level value="debug" />
+		<appender-ref ref="HIBERNATE-LOG" />
+	</logger>
+	
+	<!-- Log all JDBC parameters -->
+	<logger name="org.hibernate.type">
+		<level value="debug" />
+		<appender-ref ref="HIBERNATE-LOG" />
+	</logger>
+	
+	<!-- Log all SQL DDL statements as they are executed -->
+	<logger name="org.hibernate.tool.hbm2ddl">
+		<level value="debug" />
+		<appender-ref ref="HIBERNATE-LOG" />
+	</logger>
+	
+	           
+          
+  
 
 </configuration>

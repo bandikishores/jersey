@@ -1,17 +1,22 @@
 package com.bandi.rest.transaction.impl;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import javax.inject.Inject;
 
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.util.CollectionUtils;
+
+import com.bandi.rest.dao.entity.TestTable;
 
 import lombok.Setter;
 
@@ -51,6 +56,54 @@ public class AnnotatedDAOImpl {
 		}
 
 		return returnStr.toString();
+	}
+
+	public void bulkInsertData() {
+		Session session = sessionFactory.getCurrentSession();
+
+		// session.doWork(connection -> {
+		for (int i = 0; i < 100; i++) {
+			TestTable testTable = new TestTable();
+			testTable.setTestInt(i);
+			testTable.setTestChar(i + "");
+			session.persist(testTable);
+
+			if (i % 10 == 0) {
+				session.flush();
+				session.clear();
+			}
+		}
+		// });
+
+		System.out.println("Done with Bulk Insert");
+
+	}
+
+	private void printHibernateProperties() {
+		try {
+			Field f = SessionFactoryImpl.class.getDeclaredField("properties");
+			f.setAccessible(true);
+			Properties p = (Properties) f.get(sessionFactory);
+			p.entrySet().forEach(System.out::println);
+		} catch (NoSuchFieldException | SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public Long getTotalDataCount() {
+		Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from TestTable");
+		List list = query.list();
+		if (CollectionUtils.isEmpty(list))
+			return 0L;
+		else
+			return (Long) list.get(0);
 	}
 
 }

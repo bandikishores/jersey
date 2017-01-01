@@ -42,10 +42,10 @@ public class TestTable implements Serializable {
 	@Column(name = "SIMPLE_VHAR")
 	private String simpleChar;
 
-	@Column(name = "CREATED_ON")
-	private Date createdOn;
+	@Column(name = "CREATED_ON", nullable = false, columnDefinition = "TIMESTAMP default CURRENT_TIMESTAMP")
+	private Date createdOn = new Date(System.currentTimeMillis());
 
-	@Column(name = "MODIFIED_ON")
-	private Date modifiedOn;
+	@Column(name = "MODIFIED_ON", nullable = false, columnDefinition = "TIMESTAMP default NOW()")
+	private Date modifiedOn = new Date(System.currentTimeMillis());
 
 }

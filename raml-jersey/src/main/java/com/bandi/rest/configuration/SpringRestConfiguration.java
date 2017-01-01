@@ -42,5 +42,7 @@ public class SpringRestConfiguration extends WebMvcConfigurerAdapter {
 
         return mapper;
     }
+	
+	
 
 }
